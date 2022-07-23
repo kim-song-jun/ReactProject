@@ -28,6 +28,7 @@ function App() {
     '파이썬 독학',
   ]);
   let [likes, setLikes] = useState([0, 0, 0]);
+  let [modal, setModal] = useState(false);
   let blogTitle = 'ReactBLOG';
 
   return (
@@ -82,11 +83,17 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className='list'>
-        <h4>{titles[2]}</h4>
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          {titles[2]}
+        </h4>
         <p>2월 17일 발행</p>
       </div>
-
-      <Modal></Modal>
+      {/* react에서 if문을 쓸려면 중괄호 안에 넣어놔야함 삼항연산자 써야함 */}
+      {modal ? <Modal></Modal> : null}
     </div>
   );
 }
@@ -105,7 +112,6 @@ function Modal() {
     </div>
   );
 }
-
 // 문법 2
 // const Modal = () => {
 //  return(
