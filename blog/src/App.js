@@ -46,7 +46,7 @@ function App() {
           setTitles(copy);
         }}
       >
-        정렬
+        가나다순 정렬
       </button>
       <div className='list'>
         <h4>
@@ -85,8 +85,32 @@ function App() {
         <h4>{titles[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
+
+      <Modal></Modal>
     </div>
   );
 }
+
+// component 만들기
+// 참고 1: return()안에 html 병렬 기입하려면??
+// -> <></>  == 의미없는 div 대신 사용
+// 참고 2: <함수명></함수명> == <함수명/>
+// 문법 1
+function Modal() {
+  return (
+    <div className='modal'>
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  );
+}
+
+// 문법 2
+// const Modal = () => {
+//  return(
+//    <div></div>
+//  )
+// }
 
 export default App;
