@@ -104,7 +104,13 @@ function App() {
         })
       }
       {/* react에서 if문을 쓸려면 중괄호 안에 넣어놔야함 삼항연산자 써야함 */}
-      {modal ? <Modal titles={titles} titleIndex={titleIndex}></Modal> : null}
+      {modal ? (
+        <Modal
+          titles={titles}
+          titleIndex={titleIndex}
+          setTitles={setTitles}
+        ></Modal>
+      ) : null}
     </div>
   );
 }
@@ -120,6 +126,15 @@ function Modal(props) {
       <h4>{props.titles[props.titleIndex]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button
+        onClick={() => {
+          let copy = [...props.titles];
+          copy[0] = '여자 코트 추천';
+          props.setTitles(copy);
+        }}
+      >
+        글수정
+      </button>
     </div>
   );
 }
