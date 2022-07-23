@@ -29,6 +29,7 @@ function App() {
   ]);
   let [likes, setLikes] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
+  let [titleIndex, setTitleIndex] = useState(0);
   let blogTitle = 'ReactBLOG';
 
   // map() 사용법
@@ -65,7 +66,14 @@ function App() {
           return (
             <div className='list' key={i}>
               <h4>
-                {titles[i]}{' '}
+                <span
+                  onClick={() => {
+                    setModal(!modal);
+                    setTitleIndex(i);
+                  }}
+                >
+                  {titles[i]}{' '}
+                </span>
                 <span
                   onClick={() => {
                     let copy = [...likes];
@@ -95,19 +103,8 @@ function App() {
           );
         })
       }
-
-      <div className='list'>
-        <h4
-          onClick={() => {
-            setModal(!modal);
-          }}
-        >
-          {titles[2]}
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
       {/* react에서 if문을 쓸려면 중괄호 안에 넣어놔야함 삼항연산자 써야함 */}
-      {modal ? <Modal></Modal> : null}
+      {modal ? <Modal titles={titles} titleIndex={titleIndex}></Modal> : null}
     </div>
   );
 }
@@ -117,10 +114,10 @@ function App() {
 // -> <></>  == 의미없는 div 대신 사용
 // 참고 2: <함수명></함수명> == <함수명/>
 // 문법 1
-function Modal() {
+function Modal(props) {
   return (
     <div className='modal'>
-      <h4>제목</h4>
+      <h4>{props.titles[props.titleIndex]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
     </div>
