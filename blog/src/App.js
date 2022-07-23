@@ -30,6 +30,7 @@ function App() {
   let [likes, setLikes] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [titleIndex, setTitleIndex] = useState(0);
+  let [inputValue, setInputValue] = useState('');
   let blogTitle = 'ReactBLOG';
 
   // map() 사용법
@@ -65,17 +66,16 @@ function App() {
         titles.map(function (e, i) {
           return (
             <div className='list' key={i}>
-              <h4>
+              <h4
+                onClick={() => {
+                  setModal(!modal);
+                  setTitleIndex(i);
+                }}
+              >
+                {titles[i]}{' '}
                 <span
-                  onClick={() => {
-                    setModal(!modal);
-                    setTitleIndex(i);
-                  }}
-                >
-                  {titles[i]}{' '}
-                </span>
-                <span
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     let copy = [...likes];
                     copy[i] = copy[i] + 1;
                     setLikes(copy);
@@ -97,12 +97,47 @@ function App() {
                 >
                   변경
                 </button>
+                <button
+                  onClick={() => {
+                    let copyTitles = [...titles];
+                    let copyLikes = [...likes];
+
+                    copyTitles.splice(i, 1);
+                    copyLikes.splice(i, 1);
+
+                    setTitles(copyTitles);
+                    setLikes(copyLikes);
+                  }}
+                >
+                  삭제
+                </button>
               </h4>
               <p>2월 17일 발행</p>
             </div>
           );
         })
       }
+
+      <input
+        onChange={(e) => {
+          // state는 비동기함수라 처리가 늦음
+          setInputValue(e.target.value);
+        }}
+      ></input>
+      <button
+        onClick={() => {
+          let copyTitles = [...titles];
+          copyTitles.push(inputValue);
+          setTitles(copyTitles);
+
+          let copyLikes = [...likes];
+          copyLikes.push(0);
+          setLikes(copyLikes);
+        }}
+      >
+        글추가
+      </button>
+
       {/* react에서 if문을 쓸려면 중괄호 안에 넣어놔야함 삼항연산자 써야함 */}
       {modal ? (
         <Modal
