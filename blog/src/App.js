@@ -31,6 +31,15 @@ function App() {
   let [modal, setModal] = useState(false);
   let blogTitle = 'ReactBLOG';
 
+  // map() 사용법
+  // [1,2,3].map(function(e){
+  //  consloe.log(e)
+  //  return 123456
+  // })
+  // 1. 함수 안에 있는 코드를 반복해줌
+  // 2. parameter는 array 안에 있던 자료
+  // 3. return 하면 자료들을 array에 담아줌 but 3번 실행되서 3번 담아줌
+  //    [123456,123456,123456]
   return (
     // jsx 언어
     // .js안에서 쓰는  html 대용품
@@ -49,39 +58,44 @@ function App() {
       >
         가나다순 정렬
       </button>
-      <div className='list'>
-        <h4>
-          {titles[0]}{' '}
-          <span
-            onClick={() => {
-              let copy = [...likes];
-              copy[0] = copy[0] + 1;
-              setLikes(copy);
-            }}
-          >
-            👍
-          </span>{' '}
-          {likes[0]}{' '}
-          <button
-            onClick={() => {
-              // ...문법: array의 [], object의 {}를 벗김
-              let copy = [...titles];
-              copy[0] = '여자 코트 추천';
-              // state 변경 함수 특징
-              // 1. 기존 state === 신규 state일 경우 변경 x
-              // 2. array/object 특징(레퍼런스)
-              setTitles(copy);
-            }}
-          >
-            변경
-          </button>
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
-        <h4>{titles[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
+      {
+        // 반복문 사용법
+        // map함수를 사용하여 반복함
+        titles.map(function (e, i) {
+          return (
+            <div className='list' key={i}>
+              <h4>
+                {titles[i]}{' '}
+                <span
+                  onClick={() => {
+                    let copy = [...likes];
+                    copy[i] = copy[i] + 1;
+                    setLikes(copy);
+                  }}
+                >
+                  👍
+                </span>{' '}
+                {likes[i]}{' '}
+                <button
+                  onClick={() => {
+                    // ...문법: array의 [], object의 {}를 벗김
+                    let copy = [...titles];
+                    copy[i] = '여자 코트 추천';
+                    // state 변경 함수 특징
+                    // 1. 기존 state === 신규 state일 경우 변경 x
+                    // 2. array/object 특징(레퍼런스)
+                    setTitles(copy);
+                  }}
+                >
+                  변경
+                </button>
+              </h4>
+              <p>2월 17일 발행</p>
+            </div>
+          );
+        })
+      }
+
       <div className='list'>
         <h4
           onClick={() => {
