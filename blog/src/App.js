@@ -38,6 +38,16 @@ function App() {
       <div className='black-nav'>
         <h4 style={myStyle}>{blogTitle}</h4>
       </div>
+
+      <button
+        onClick={() => {
+          let copy = [...titles];
+          copy.sort();
+          setTitles(copy);
+        }}
+      >
+        정렬
+      </button>
       <div className='list'>
         <h4>
           {titles[0]}{' '}
@@ -53,8 +63,12 @@ function App() {
           {likes[0]}{' '}
           <button
             onClick={() => {
+              // ...문법: array의 [], object의 {}를 벗김
               let copy = [...titles];
               copy[0] = '여자 코트 추천';
+              // state 변경 함수 특징
+              // 1. 기존 state === 신규 state일 경우 변경 x
+              // 2. array/object 특징(레퍼런스)
               setTitles(copy);
             }}
           >
