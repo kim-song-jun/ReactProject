@@ -127,11 +127,11 @@ function App() {
       <button
         onClick={() => {
           let copyTitles = [...titles];
-          copyTitles.push(inputValue);
+          copyTitles.unshift(inputValue);
           setTitles(copyTitles);
 
           let copyLikes = [...likes];
-          copyLikes.push(0);
+          copyLikes.unshift(0);
           setLikes(copyLikes);
         }}
       >
