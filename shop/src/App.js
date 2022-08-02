@@ -6,29 +6,40 @@ import Col from "react-bootstrap/Col";
 import "./App.css";
 import data from "./data.js";
 import { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   let [shoes, setShoes] = useState(data);
 
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="bright" variant="bright">
         <Container>
-          <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/detail">Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-      <div className="main-bg"></div>
-      <Container>
-        <Row>
-          {shoes.map(function (e, i) {
-            return <Card shoes={e}></Card>;
-          })}
-        </Row>
-      </Container>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="main-bg"></div>
+              <Container>
+                <Row>
+                  {shoes.map(function (e, i) {
+                    return <Card shoes={e}></Card>;
+                  })}
+                </Row>
+              </Container>
+            </>
+          }
+        />
+        <Route path="/detail" element={<div>detail page</div>} />
+      </Routes>
     </div>
   );
 }
@@ -38,6 +49,7 @@ function Card(props) {
     <>
       <Col md={4}>
         <img
+          alt="코딩애플 이미지"
           src={
             "https://codingapple1.github.io/shop/shoes" +
             (props.shoes.id + 1) +
