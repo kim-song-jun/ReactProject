@@ -25,7 +25,7 @@ function App() {
       <Container>
         <Row>
           {shoes.map(function (e, i) {
-            return <Shoe shoe={e}></Shoe>;
+            return <Card shoes={e}></Card>;
           })}
         </Row>
       </Container>
@@ -33,20 +33,24 @@ function App() {
   );
 }
 
-function Shoe(props) {
+function Card(props) {
   return (
     <>
       <Col md={4}>
         <img
           src={
             "https://codingapple1.github.io/shop/shoes" +
-            (props.shoe.id + 1) +
+            (props.shoes.id + 1) +
             ".jpg"
           }
           width="80%"
         />
-        <h4>{props.shoe.title}</h4>
-        <p>{props.shoe.content}</p>
+        <h4>{props.shoes.title}</h4>
+        <p>
+          {props.shoes.content}
+          <br />
+          {props.shoes.price}
+        </p>
       </Col>
     </>
   );
