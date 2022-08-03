@@ -6,19 +6,34 @@ import Col from "react-bootstrap/Col";
 import "./App.css";
 import data from "./data.js";
 import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import Detail from "./components/Detail.js";
 
 function App() {
   let [shoes, setShoes] = useState(data);
+  // 훅 : 유용한 것들 ,, 페이지 이동을 도와줌
+  let navigate = useNavigate();
 
   return (
     <div className="App">
-      <Navbar bg="bright" variant="bright">
+      <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">Cart</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/detail");
+              }}
+            >
+              Detail
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -38,9 +53,37 @@ function App() {
             </>
           }
         />
-        <Route path="/detail" element={<div>detail page</div>} />
+        <Route path="/detail" element={<Detail shoes={shoes[0]}></Detail>} />
+        <Route path="/about" element={<About></About>}>
+          <Route path="member" element={<div>member</div>}></Route>
+          <Route path="location" element={<div>location</div>}></Route>
+        </Route>
+        <Route path="/event" element={<Event></Event>}>
+          <Route
+            path="one"
+            element={<div>첫 주문시 양배추즙 서비스</div>}
+          ></Route>
+          <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
+        </Route>
+        <Route path="*" element={<div>없는 페이지</div>} />
       </Routes>
     </div>
+  );
+}
+function About() {
+  return (
+    <>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </>
+  );
+}
+function Event() {
+  return (
+    <>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
+    </>
   );
 }
 
