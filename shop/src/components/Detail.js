@@ -1,28 +1,33 @@
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/esm/Col";
-import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/esm/Col';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import { useParams } from 'react-router-dom';
 
 function Detail(props) {
+  let { id } = useParams();
+
+  let shoe = props.shoes.find((x) => x.id == id);
+
   return (
     <Container>
       <Row>
         <Col md={4}>
           <img
             src={
-              "https://codingapple1.github.io/shop/shoes" +
-              (props.shoes.id + 1) +
-              ".jpg"
+              'https://codingapple1.github.io/shop/shoes' +
+              (shoe.id + 1) +
+              '.jpg'
             }
-            width="100%"
-            alt={"코딩애플 이미지" + (props.shoes.id + 1)}
+            width='100%'
+            alt={'코딩애플 이미지' + (shoe.id + 1)}
           />
         </Col>
-        <Col md={4}>
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
-          <Button variant="outline-danger">주문하기</Button>
+        <Col md={4} mt={4}>
+          <h4 className='pt-5'>{shoe.title}</h4>
+          <p>{shoe.content}</p>
+          <p>{shoe.price}</p>
+          <Button variant='outline-danger'>주문하기</Button>
         </Col>
       </Row>
     </Container>
