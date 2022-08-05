@@ -3,6 +3,13 @@ import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+let ColorBtn = styled.button`
+  background: ${(props) => props.bg};
+  color: ${(props) => (props.bg == 'blue' ? 'white' : 'black')};
+  padding: 10px;
+`;
 
 function Detail(props) {
   let { id } = useParams();
@@ -12,6 +19,8 @@ function Detail(props) {
   return (
     <Container>
       <Row>
+        <ColorBtn bg='orange'>버튼</ColorBtn>
+        <ColorBtn bg='blue'>버튼</ColorBtn>
         <Col md={4}>
           <img
             src={
