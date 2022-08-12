@@ -28,19 +28,37 @@ let ColorBtn = styled.button`
 function Detail(props) {
   // 컴포넌트에 갈고리 다는법 (요즘)
   // 여기 안에 적힌 코드는 mount, update시 실행됨
-  useEffect(() => {
-    // 실행 시점이 다름
-    // html 렌더링 후에 작동함
-    // 어려운 동작을 렌더링 한 후에 계산할 수 있음(ex 반복문 10000번)
-    // 안에 적는 코드들:
-    //  - 어려운 연산
-    //  - 서버에서 데이터 가져오는 작업
-    //  - 타이머 장착하는거
-    setTimeout(() => {
-      setDiscount(false);
-    }, 2000);
-    console.log('hello');
-  });
+  useEffect(
+    () => {
+      // 실행 시점이 다름
+      // html 렌더링 후에 작동함
+      // 어려운 동작을 렌더링 한 후에 계산할 수 있음(ex 반복문 10000번)
+      // 안에 적는 코드들:
+      //  - 어려운 연산
+      //  - 서버에서 데이터 가져오는 작업
+      //  - 타이머 장착하는거
+      let a = setTimeout(() => {
+        setDiscount(false);
+      }, 2000);
+      console.log('useEffect');
+      // useEffect 동작 전에 실행되는
+      // return () => { }
+      return () => {
+        // 기존 코드 치우는 코드 자주 작성함
+        // ex) 타이머 제거
+        // ex) 서버로 데이터 요청
+        // 기존 데이터 요청은 제거해주세요 ~ 이후 서버로 데이터 요청
+        // mount시 실행 안되고 unmount시 실행됨
+        console.log('clear function');
+        clearTimeout(a);
+      };
+    },
+    // useEffect 실행조건 넣을 수 있는 곳... []
+    // mount시, 안에 있는 state가 변할 때, 실행됨
+    []
+  );
+
+  let [count, setCount] = useState(0);
   let [discount, setDiscount] = useState(true);
   let { id } = useParams();
   let shoe = props.shoes.find((x) => x.id == id);
