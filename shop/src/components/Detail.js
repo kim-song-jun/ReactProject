@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Nav from 'react-bootstrap/Nav';
 
 let ColorBtn = styled.button`
   background: ${(props) => props.bg};
@@ -62,6 +63,8 @@ function Detail(props) {
   let [discount, setDiscount] = useState(true);
   let { id } = useParams();
   let shoe = props.shoes.find((x) => x.id == id);
+  let [tab, setTab] = useState(0);
+
   return (
     <Container>
       {discount == true ? (
@@ -88,8 +91,54 @@ function Detail(props) {
           <Button variant='outline-danger'>주문하기</Button>
         </Col>
       </Row>
+      <Nav variant='tabs' defaultActiveKey='link-0'>
+        <Nav.Item>
+          <Nav.Link
+            eventKey='link-0'
+            onClick={() => {
+              setTab(0);
+            }}
+          >
+            Button0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey='link-1'
+            onClick={() => {
+              setTab(1);
+            }}
+          >
+            Button1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey='link-2'
+            onClick={() => {
+              setTab(2);
+            }}
+          >
+            Button2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <TabContent tab={tab}></TabContent>
     </Container>
   );
+}
+
+function TabContent({ tab }) {
+  if (tab == 0) {
+    return <div>내용0</div>;
+  }
+  if (tab == 1) {
+    return <div>내용1</div>;
+  }
+  if (tab == 2) {
+    return <div>내용2</div>;
+  }
 }
 
 export default Detail;
