@@ -15,6 +15,8 @@ function App() {
   let [shoes, setShoes] = useState(data);
   // 훅 : 유용한 것들 ,, 페이지 이동을 도와줌
   let navigate = useNavigate();
+  let [index, setIndex] = useState(2);
+  let [loding, setLoding] = useState(false);
 
   return (
     <div className='App'>
@@ -71,20 +73,37 @@ function App() {
         <Route path='*' element={<div>없는 페이지</div>} />
       </Routes>
 
+      {loding ? <div>로딩중...</div> : null}
       <Button
         variant='outline-danger'
         onClick={() => {
+          if (index > 3) {
+            console.log('out of index');
+            return;
+          }
+          let copyLoding = loding;
+          setLoding(!copyLoding);
           axios
-            .get('https://codingapple1.github.io/shop/data2.json')
+            .get(`https://codingapple1.github.io/shop/data${index}.json`)
             .then((e) => {
-              console.log(e.data);
-              let copy = [...shoes];
-              let newData = copy.concat(e.data);
-              setShoes(newData);
+              console.log('data loding sucessed');
+              // let copy = [...shoes];
+              // let newData = copy.concat(e.data);
+              // setShoes(newData);
+              let copy = [...shoes, ...e.data];
+              setShoes(copy);
+              let copyIndex = index;
+              copyIndex++;
+              console.log(copyIndex);
+              setIndex(copyIndex);
+              let copyLoding = loding;
+              setLoding(!copyLoding);
             })
             .catch((e) => {
               console.log('data loading failed');
-              console.log('error >' + e);
+              console.log('error > ' + e);
+              let copyLoding = loding;
+              setLoding(!copyLoding);
             });
         }}
       >
