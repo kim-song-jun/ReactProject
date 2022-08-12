@@ -10,6 +10,26 @@
   background-position: center;
 }
 
+.tab-start{
+  transform: scale(0);
+  opacity: 0;
+}
+
+.tab-end{
+  transform: scale(1);
+  opacity: 1;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.detail-start{
+  opacity: 0;
+}
+
+.detail-end{
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

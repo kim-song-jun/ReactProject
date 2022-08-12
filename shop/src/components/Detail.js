@@ -41,6 +41,9 @@ function Detail(props) {
       let a = setTimeout(() => {
         setDiscount(false);
       }, 2000);
+      let b = setTimeout(() => {
+        setPageFade('detail-end');
+      }, 100);
       console.log('useEffect');
       // useEffect 동작 전에 실행되는
       // return () => { }
@@ -52,6 +55,7 @@ function Detail(props) {
         // mount시 실행 안되고 unmount시 실행됨
         console.log('clear function');
         clearTimeout(a);
+        clearTimeout(b);
       };
     },
     // useEffect 실행조건 넣을 수 있는 곳... []
@@ -59,6 +63,7 @@ function Detail(props) {
     []
   );
 
+  let [pageFade, setPageFade] = useState('');
   let [count, setCount] = useState(0);
   let [discount, setDiscount] = useState(true);
   let { id } = useParams();
@@ -66,7 +71,7 @@ function Detail(props) {
   let [tab, setTab] = useState(0);
 
   return (
-    <Container>
+    <Container className={`detail-start ${pageFade}`}>
       {discount == true ? (
         <div className='alert alert-warning'>2초 이내 구매시 할인</div>
       ) : null}
@@ -130,15 +135,22 @@ function Detail(props) {
 }
 
 function TabContent({ tab }) {
-  if (tab == 0) {
-    return <div>내용0</div>;
-  }
-  if (tab == 1) {
-    return <div>내용1</div>;
-  }
-  if (tab == 2) {
-    return <div>내용2</div>;
-  }
+  let [fade, setFade] = useState('');
+
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setFade('tab-end');
+    }, 100);
+    return () => {
+      clearTimeout(a);
+      setFade('');
+    };
+  }, [tab]);
+  return (
+    <div className={`tab-start ${fade}`}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  );
 }
 
 export default Detail;
