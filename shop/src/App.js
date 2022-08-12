@@ -8,6 +8,8 @@ import data from './data.js';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './components/Detail.js';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -68,6 +70,26 @@ function App() {
         </Route>
         <Route path='*' element={<div>없는 페이지</div>} />
       </Routes>
+
+      <Button
+        variant='outline-danger'
+        onClick={() => {
+          axios
+            .get('https://codingapple1.github.io/shop/data2.json')
+            .then((e) => {
+              console.log(e.data);
+              let copy = [...shoes];
+              let newData = copy.concat(e.data);
+              setShoes(newData);
+            })
+            .catch((e) => {
+              console.log('data loading failed');
+              console.log('error >' + e);
+            });
+        }}
+      >
+        버튼
+      </Button>
     </div>
   );
 }
