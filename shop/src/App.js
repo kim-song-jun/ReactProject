@@ -5,11 +5,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 import data from './data.js';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './components/Detail.js';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+
+// context 생성
+// context는 state 보관함 역할
+export let Context1 = createContext();
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -17,6 +21,7 @@ function App() {
   let navigate = useNavigate();
   let [index, setIndex] = useState(2);
   let [loding, setLoding] = useState(false);
+  let [store, setStore] = useState([10, 11, 12]);
 
   return (
     <div className='App'>
@@ -96,7 +101,14 @@ function App() {
           }
         />
 
-        <Route path='/detail/:id' element={<Detail shoes={shoes}></Detail>} />
+        <Route
+          path='/detail/:id'
+          element={
+            <Context1.Provider value={{ store, shoes }}>
+              <Detail shoes={shoes}></Detail>
+            </Context1.Provider>
+          }
+        />
         <Route path='/about' element={<About></About>}>
           <Route path='member' element={<div>member</div>}></Route>
           <Route path='location' element={<div>location</div>}></Route>

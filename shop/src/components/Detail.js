@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/esm/Row';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from 'react-bootstrap/Nav';
+import { Context1 } from './../App.js';
 
 let ColorBtn = styled.button`
   background: ${(props) => props.bg};
@@ -27,6 +28,9 @@ let ColorBtn = styled.button`
 // }
 
 function Detail(props) {
+  // state 사용은 useContext(Context)
+  let { store, shoes } = useContext(Context1);
+
   // 컴포넌트에 갈고리 다는법 (요즘)
   // 여기 안에 적힌 코드는 mount, update시 실행됨
   useEffect(
@@ -129,12 +133,13 @@ function Detail(props) {
         </Nav.Item>
       </Nav>
 
-      <TabContent tab={tab}></TabContent>
+      <TabContent tab={tab} shoes={props.shoes}></TabContent>
     </Container>
   );
 }
 
-function TabContent({ tab }) {
+function TabContent({ tab, shoes }) {
+  let { store } = useContext(Context1);
   let [fade, setFade] = useState('');
 
   useEffect(() => {
@@ -148,7 +153,13 @@ function TabContent({ tab }) {
   }, [tab]);
   return (
     <div className={`tab-start ${fade}`}>
-      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+      {
+        [
+          <div>{shoes[0].title}</div>,
+          <div>{shoes[1].title}</div>,
+          <div>{shoes[2].title}</div>,
+        ][tab]
+      }
     </div>
   );
 }
