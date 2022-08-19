@@ -10,6 +10,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './components/Detail.js';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import Cart from './components/Cart.js';
 
 // context 생성
 // context는 state 보관함 역할
@@ -109,6 +110,7 @@ function App() {
             </Context1.Provider>
           }
         />
+        <Route path='/cart' element={<Cart></Cart>}></Route>
         <Route path='/about' element={<About></About>}>
           <Route path='member' element={<div>member</div>}></Route>
           <Route path='location' element={<div>location</div>}></Route>
