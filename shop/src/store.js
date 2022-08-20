@@ -2,15 +2,19 @@ import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 let userName = createSlice({
   name: 'userName',
-  initialState: 'kim',
+  initialState: { name: 'kim', age: 20 },
   reducers: {
+    // state변경 함수들을 action이라고 부름
     setUserName(state) {
-      return 'john' + state;
+      state.name = 'Park';
+    },
+    increaseAge(state, action) {
+      state.age += action.payload;
     },
   },
 });
 
-export let { setUserName } = userName.actions;
+export let { setUserName, increaseAge } = userName.actions;
 
 let stock = createSlice({
   name: 'stock',
@@ -23,7 +27,32 @@ let userCart = createSlice({
     { id: 0, name: 'White and Black', count: 2 },
     { id: 2, name: 'Grey Yordan', count: 1 },
   ],
+  reducers: {
+    setCount(store, action) {
+      for (let i of store) {
+        if (i.id == action.payload) {
+          i.count++;
+        }
+      }
+    },
+    addUserCart(store, action) {
+      for (let i of store) {
+        if (i.id == action.payload.id) {
+          i.count++;
+          return store;
+        }
+      }
+      // console.log(action.payload);
+      let copy = [
+        ...store,
+        { id: action.payload.id, name: `${action.payload.title}`, count: 1 },
+      ];
+      return copy;
+    },
+  },
 });
+
+export let { setCount, addUserCart } = userCart.actions;
 
 export default configureStore({
   reducer: {

@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from 'react-bootstrap/Nav';
 import { Context1 } from './../App.js';
+import { addUserCart } from '../store.js';
+import { useDispatch } from 'react-redux/es/exports';
 
 let ColorBtn = styled.button`
   background: ${(props) => props.bg};
@@ -30,6 +32,7 @@ let ColorBtn = styled.button`
 function Detail(props) {
   // state 사용은 useContext(Context)
   let { store, shoes } = useContext(Context1);
+  let dispatch = useDispatch();
 
   // 컴포넌트에 갈고리 다는법 (요즘)
   // 여기 안에 적힌 코드는 mount, update시 실행됨
@@ -97,7 +100,14 @@ function Detail(props) {
           <h4 className='pt-5'>{shoe.title}</h4>
           <p>{shoe.content}</p>
           <p>{shoe.price}</p>
-          <Button variant='outline-danger'>주문하기</Button>
+          <Button
+            variant='outline-danger'
+            onClick={() => {
+              dispatch(addUserCart(shoe));
+            }}
+          >
+            주문하기
+          </Button>
         </Col>
       </Row>
       <Nav variant='tabs' defaultActiveKey='link-0'>
