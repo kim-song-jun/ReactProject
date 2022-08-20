@@ -1,5 +1,9 @@
 import Table from 'react-bootstrap/Table';
+import { useSelector } from 'react-redux/es/exports';
 function Cart() {
+  let a = useSelector((state) => {
+    return state;
+  });
   return (
     <>
       <Table>
