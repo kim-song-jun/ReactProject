@@ -1,9 +1,18 @@
+import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
-import { useSelector } from 'react-redux/es/exports';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { setUserName } from '../store.js';
+
 function Cart() {
-  let a = useSelector((state) => {
+  let state = useSelector((state) => {
     return state.userCart;
   });
+
+  let otherState = useSelector((state) => {
+    return state.userName;
+  });
+
+  let dispatch = useDispatch();
   return (
     <>
       <Table>
@@ -16,13 +25,21 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          {a.map(function (e, i) {
+          {state.map(function (e, i) {
             return (
               <tr>
                 <td>{i + 1}</td>
                 <td>{e.name}</td>
                 <td>{e.count}</td>
-                <td>@mdo</td>
+                <td>
+                  <Button
+                    onClick={() => {
+                      dispatch(setUserName());
+                    }}
+                  >
+                    {otherState}
+                  </Button>
+                </td>
               </tr>
             );
           })}
