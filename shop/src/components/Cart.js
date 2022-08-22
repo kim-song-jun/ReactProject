@@ -45,7 +45,6 @@ function Cart() {
                   <Button
                     onClick={() => {
                       dispatch(setCount(e.id));
-                      console.log(e.id);
                     }}
                   >
                     +
