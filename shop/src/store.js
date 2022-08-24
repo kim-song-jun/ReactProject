@@ -42,7 +42,6 @@ let userCart = createSlice({
           return store;
         }
       }
-      // console.log(action.payload);
       let copy = [
         ...store,
         { id: action.payload.id, name: `${action.payload.title}`, count: 1 },
