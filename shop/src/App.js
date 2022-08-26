@@ -1,16 +1,16 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import './App.css';
-import data from './data.js';
-import { createContext, useState } from 'react';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
-import Detail from './components/Detail.js';
-import Button from 'react-bootstrap/Button';
-import axios from 'axios';
-import Cart from './components/Cart.js';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./App.css";
+import data from "./data.js";
+import { createContext, useState } from "react";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import Detail from "./components/Detail.js";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
+import Cart from "./components/Cart.js";
 
 // context 생성
 // context는 state 보관함 역할
@@ -25,28 +25,28 @@ function App() {
   let [store, setStore] = useState([10, 11, 12]);
 
   return (
-    <div className='App'>
-      <Navbar bg='light' variant='light'>
+    <div className="App">
+      <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href='/'>ShoeShop</Navbar.Brand>
-          <Nav className='me-auto'>
+          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
+          <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
-                navigate('/');
+                navigate("/");
               }}
             >
               Home
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate('/detail/0');
+                navigate("/detail/1");
               }}
             >
               Detail
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate('/cart');
+                navigate("/cart");
               }}
             >
               Cart
@@ -56,10 +56,10 @@ function App() {
       </Navbar>
       <Routes>
         <Route
-          path='/'
+          path="/"
           element={
             <>
-              <div className='main-bg'></div>
+              <div className="main-bg"></div>
               <Container>
                 <Row>
                   {shoes.map(function (e, i) {
@@ -68,10 +68,10 @@ function App() {
                 </Row>
                 {loding ? <div>로딩중...</div> : null}
                 <Button
-                  variant='outline-danger'
+                  variant="outline-danger"
                   onClick={() => {
                     if (index > 3) {
-                      console.log('out of index');
+                      console.log("out of index");
                       return;
                     }
                     let copyLoding = loding;
@@ -81,7 +81,7 @@ function App() {
                         `https://codingapple1.github.io/shop/data${index}.json`
                       )
                       .then((e) => {
-                        console.log('data loding sucessed');
+                        console.log("data loding sucessed");
                         // let copy = [...shoes];
                         // let newData = copy.concat(e.data);
                         // setShoes(newData);
@@ -95,8 +95,8 @@ function App() {
                         setLoding(!copyLoding);
                       })
                       .catch((e) => {
-                        console.log('data loading failed');
-                        console.log('error > ' + e);
+                        console.log("data loading failed");
+                        console.log("error > " + e);
                         let copyLoding = loding;
                         setLoding(!copyLoding);
                       });
@@ -110,26 +110,26 @@ function App() {
         />
 
         <Route
-          path='/detail/:id'
+          path="/detail/:id"
           element={
             <Context1.Provider value={{ store, shoes }}>
               <Detail shoes={shoes}></Detail>
             </Context1.Provider>
           }
         />
-        <Route path='/cart' element={<Cart></Cart>}></Route>
-        <Route path='/about' element={<About></About>}>
-          <Route path='member' element={<div>member</div>}></Route>
-          <Route path='location' element={<div>location</div>}></Route>
+        <Route path="/cart" element={<Cart></Cart>}></Route>
+        <Route path="/about" element={<About></About>}>
+          <Route path="member" element={<div>member</div>}></Route>
+          <Route path="location" element={<div>location</div>}></Route>
         </Route>
-        <Route path='/event' element={<Event></Event>}>
+        <Route path="/event" element={<Event></Event>}>
           <Route
-            path='one'
+            path="one"
             element={<div>첫 주문시 양배추즙 서비스</div>}
           ></Route>
-          <Route path='two' element={<div>생일기념 쿠폰받기</div>}></Route>
+          <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
         </Route>
-        <Route path='*' element={<div>없는 페이지</div>} />
+        <Route path="*" element={<div>없는 페이지</div>} />
       </Routes>
     </div>
   );
@@ -156,13 +156,13 @@ function Card(props) {
     <>
       <Col md={4}>
         <img
-          alt='코딩애플 이미지'
+          alt="코딩애플 이미지"
           src={
-            'https://codingapple1.github.io/shop/shoes' +
+            "https://codingapple1.github.io/shop/shoes" +
             (props.shoes.id + 1) +
-            '.jpg'
+            ".jpg"
           }
-          width='80%'
+          width="80%"
         />
         <h4>{props.shoes.title}</h4>
         <p>
